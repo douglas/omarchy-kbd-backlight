@@ -47,12 +47,26 @@ Panel {
   Component.onCompleted: refresh()
   onOpenedChanged: if (opened) refresh()
 
-  // Firmware hotkeys (Fn+Space on ThinkPads) change the level behind our back.
+  // Firmware hotkeys (Fn+Space on ThinkPads) change the level behind our back
+  // and sysfs sends no inotify event, so poll the LED's brightness file. A
+  // FileView read is cheap: no process per tick.
+  FileView {
+    id: brightnessFile
+    path: root.available ? "/sys/class/leds/" + root.device + "/brightness" : ""
+    printErrors: false
+    onLoaded: {
+      // Our own write is in flight; its level is the one to show.
+      if (setProc.running || root.pendingLevel >= 0) return
+      var value = parseInt(String(text() || "").trim(), 10)
+      if (!isNaN(value) && value !== root.level) root.level = value
+    }
+  }
+
   Timer {
-    interval: 5000
-    running: root.opened
+    interval: 1000
+    running: root.available
     repeat: true
-    onTriggered: root.refresh()
+    onTriggered: brightnessFile.reload()
   }
 
   Process {
