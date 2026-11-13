@@ -22,6 +22,12 @@ same bar layout works on desktops too.
 omarchy plugin add https://github.com/douglas/omarchy-kbd-backlight.git --enable
 ```
 
+## Remove
+
+```bash
+omarchy plugin remove io.github.douglas.kbd-backlight
+```
+
 ## Keybinding
 
 The panel registers the IPC target `io.github.douglas.kbd-backlight`, so you
