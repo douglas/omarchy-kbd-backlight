@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "io.github.douglas.kbd-backlight",
+  "name": "Keyboard backlight",
+  "version": "0.1.0",
+  "author": "Douglas Soares de Andrade",
+  "description": "Keyboard backlight slider for laptops without backlight keys",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Widget.qml"
+  },
+  "barWidget": {
+    "displayName": "Keyboard backlight",
+    "description": "Keyboard backlight slider for laptops without backlight keys",
+    "category": "System",
+    "aliases": ["keyboard", "backlight", "kbd"],
+    "allowMultiple": false,
+    "defaultSection": "right"
+  },
+  "license": "MIT"
+}
